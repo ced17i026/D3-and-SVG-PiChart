@@ -10,26 +10,27 @@ for (var i = 0; i < birthData.length; i++) {
     continents.push(continent);
   }
 }
-
+//scaling the color based on content
 var colorScale = d3.scaleOrdinal()
-                   .domain(continents)
+                   .domain(continents)//this is bunch of colors
                    .range(d3.schemeCategory10);
-
+//the chart have to be in a group to have the center of all 
+//the arcs at a single place
 d3.select('svg')
     .attr('width', width)
     .attr('height', height)
   .append('g')
     .attr('transform', 'translate(' + width / 2 + ', ' + height / 2 + ')')
     .classed('chart', true);
-
+//making the arcs as per births and passing the yearData to get the births
 var arcs = d3.pie()
              .value(d => d.births)
              (yearData);
-
+//this will define the outer and inner radius of the arcs
 var path = d3.arc()
              .outerRadius(width / 2 - 10)
              .innerRadius(width / 4);
-
+//here we are making the actual chart
 d3.select('.chart')
   .selectAll('.arc')
   .data(arcs)
